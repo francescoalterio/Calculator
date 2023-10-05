@@ -38,7 +38,7 @@ function resolveOperation (tree) {
   const multiplicationOrDivisionIndex = tree.findIndex(data => '*/'.includes(data.value))
   if (multiplicationOrDivisionIndex > -1) {
     const [before, symbol, after] = [tree[multiplicationOrDivisionIndex - 1], tree[multiplicationOrDivisionIndex], tree[multiplicationOrDivisionIndex + 1]]
-    const result = resulveBinaryOperation(before.value, symbol.value, after.value)
+    const result = resolveBinaryOperation(before.value, symbol.value, after.value)
     tree[multiplicationOrDivisionIndex - 1] = { value: result }
     tree = tree.filter((_, index) => index !== multiplicationOrDivisionIndex && index !== multiplicationOrDivisionIndex + 1)
     return resolveOperation(tree)
@@ -47,14 +47,14 @@ function resolveOperation (tree) {
   const sumOrSubtractionIndex = tree.findIndex(data => '+-'.includes(data.value))
   if (sumOrSubtractionIndex > -1) {
     const [before, symbol, after] = [tree[sumOrSubtractionIndex - 1], tree[sumOrSubtractionIndex], tree[sumOrSubtractionIndex + 1]]
-    const result = resulveBinaryOperation(before.value, symbol.value, after.value)
+    const result = resolveBinaryOperation(before.value, symbol.value, after.value)
     tree[sumOrSubtractionIndex - 1] = { value: result }
     tree = tree.filter((_, index) => index !== sumOrSubtractionIndex && index !== sumOrSubtractionIndex + 1)
     return resolveOperation(tree)
   }
 }
 
-function resulveBinaryOperation (before, symbol, after) {
+function resolveBinaryOperation (before, symbol, after) {
   const beforeToNumber = parseFloat(before)
   const afterToNumber = parseFloat(after)
   if (isNaN(beforeToNumber) || isNaN(afterToNumber)) throw new Error('Invalid operation')
