@@ -4,6 +4,6 @@ Calculator es una función que te permite resolver operaciones matemáticas de s
 
 ## Ejemplo
 
-```
+```javascript
 Calculator.calculate("5+5*3-(55*(34/5))")
 ```
